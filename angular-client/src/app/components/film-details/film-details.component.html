@@ -1,0 +1,94 @@
+<div *ngIf="viewMode; else editable">
+  <div *ngIf="currentFilm.id">
+    <h4>Film</h4>
+    <div>
+      <label><strong>Title:</strong></label> {{ currentFilm.title }}
+    </div>
+    <div>
+      <label><strong>Description:</strong></label>
+      {{ currentFilm.description }}
+    </div>
+    <div>
+      <label><strong>Status:</strong></label>
+      {{ currentFilm.published ? "Published" : "Pending" }}
+    </div>
+
+    <a
+      class="badge badge-warning"
+      routerLink="/films/{{ currentFilm.id }}"
+    >
+      Edit
+    </a>
+  </div>
+
+  <div *ngIf="!currentFilm">
+    <br />
+    <p>Please click on a Film...</p>
+  </div>
+</div>
+
+<ng-template #editable>
+  <div *ngIf="currentFilm.id" class="edit-form">
+    <h4>Film</h4>
+    <form>
+      <div class="form-group">
+        <label for="title">Title</label>
+        <input
+          type="text"
+          class="form-control"
+          id="title"
+          [(ngModel)]="currentFilm.title"
+          name="title"
+        />
+      </div>
+      <div class="form-group">
+        <label for="description">Description</label>
+        <input
+          type="text"
+          class="form-control"
+          id="description"
+          [(ngModel)]="currentFilm.description"
+          name="description"
+        />
+      </div>
+
+      <div class="form-group">
+        <label><strong>Status:</strong></label>
+        {{ currentFilm.published ? "Published" : "Pending" }}
+      </div>
+    </form>
+
+    <button
+      class="badge badge-primary mr-2"
+      *ngIf="currentFilm.published"
+      (click)="updatePublished(false)"
+    >
+      UnPublish
+    </button>
+    <button
+      *ngIf="!currentFilm.published"
+      class="badge badge-primary mr-2"
+      (click)="updatePublished(true)"
+    >
+      Publish
+    </button>
+
+    <button class="badge badge-danger mr-2" (click)="deleteFilm()">
+      Delete
+    </button>
+
+    <button
+      type="submit"
+      class="badge badge-success mb-2"
+      (click)="updateFilm()"
+    >
+      Update
+    </button>
+    <p>{{ message }}</p>
+  </div>
+
+  <div *ngIf="!currentFilm.id">
+    <br />
+    <p>Cannot access this Film...</p>
+  </div>
+</ng-template>

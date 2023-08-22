@@ -1,0 +1,43 @@
+<div class="list row">
+  <div class="col-md-8">
+    <div class="input-group mb-3">
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Search by title"
+        [(ngModel)]="title"
+      />
+      <div class="input-group-append">
+        <button
+          class="btn btn-outline-secondary"
+          (click)="searchTitle()"
+        >
+          Search
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <h4>Films List</h4>
+    <ul class="list-group">
+      <li
+        class="list-group-item"
+        *ngFor="let film of films; let i = index"
+        [class.active]="i == currentIndex"
+        (click)="setActiveFilm(film, i)"
+      >
+        {{ film.title }}
+      </li>
+    </ul>
+
+    <button class="m-3 btn btn-sm btn-danger" (click)="removeAllFilms()">
+      Remove All
+    </button>
+  </div>
+  <div class="col-md-6">
+    <app-film-details
+      [viewMode]="true"
+      [currentFilm]="currentFilm"
+    ></app-film-details>
+  </div>
+</div>
