@@ -1,0 +1,27 @@
+version: '3'
+services:
+  mongodb:
+    image: mongo:latest
+    container_name: mongodb
+    ports:
+      - "27017:27017"
+
+  node-backend:
+    build:
+      context: ./node-express-server
+    container_name: node-backend
+    ports:
+      - "3000:3000"
+    depends_on:
+      - mongodb
+    environment:
+      MONGODB_URI: "mongodb://mongodb:27017/simpleCrud_db"
+
+  angular-frontend:
+    build:
+      context: ./angular-client
+    container_name: angular-frontend
+    ports:
+      - "80:80"
+    depends_on:
+      - node-backend

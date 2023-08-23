@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Film } from '../models/film.model';
 
-const baseUrl = 'http://localhost:8080/api/films';
+const baseUrl = 'http://localhost:3000/api/films';
 
 @Injectable({
   providedIn: 'root'
@@ -21,6 +21,7 @@ export class FilmService {
   }
 
   create(data: any): Observable<any> {
+    console.log('Request Data:', data);
     return this.http.post(baseUrl, data);
   }
 
